@@ -13,27 +13,28 @@ var album_model_1 = require("./album.model");
 var AppComponent = (function () {
     function AppComponent() {
         this.masterAlbumsList = [
-            new album_model_1.Album("NAME1", "ARTIST1", "GENRE1", "placeholder.png", 9.95, 10),
-            new album_model_1.Album("NAME2", "ARTIST2", "GENRE2", "placeholder.png", 9.95, 10),
-            new album_model_1.Album("NAME3", "ARTIST3", "GENRE3", "placeholder.png", 9.95, 10)
+            new album_model_1.Album("Abbey Road", "The Beatles", "Rock", "beatles-abbey.jpg", 19.95, 20),
+            new album_model_1.Album("Blood on the Tracks", "Bob Dylan", "Folk", "dylan-blood.jpg", 14.95, 15),
+            new album_model_1.Album("Stardust", "Willie Nelson", "Country", "nelson-stardust.jpg", 9.95, 10)
         ];
-        // addAlbum(newAlbumFromChild: Album) {
-        //   this.masterAlbumList.push(newAlbumFromChild);
-        // }
-        // selectedAlbum: Album = null;
-        // showDetails(clickedAlbum: Album) {
-        //   this.selectedAlbum = clickedAlbum;
-        // }
-        // finishedUpdate() {
-        //   this.selectedAlbum = null;
-        // }
+        this.clickedAlbum = null;
     }
+    AppComponent.prototype.addAlbum = function (newAlbumToAdd) {
+        this.masterAlbumsList.push(newAlbumToAdd);
+    };
+    AppComponent.prototype.editAlbum = function (clickedAlbum2) {
+        console.log(clickedAlbum2);
+        this.clickedAlbum = clickedAlbum2;
+    };
+    AppComponent.prototype.finishedUpdate = function () {
+        this.clickedAlbum = null;
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n  <div class=\"container\">\n    <h1>Karen & Zack's Oldies but Goodies</h1>\n    <div class=\"row\">\n      <div class=\"col-sm-8\">\n        <list-albums\n          [albumsList] = \"masterAlbumsList\"\n        ></list-albums>\n      </div>\n      <div class=\"col-sm-4\">\n        <new-album></new-album>\n        <edit-album></edit-album>\n      </div>\n    </div>\n  </div>\n  "
+        template: "\n  <div class=\"jumbotron\">\n    <div class=\"container\">\n      <h1>Karen & Zack's<br>Oldies but Goodies</h1>\n    </div>\n  </div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-sm-8\">\n        <div class=\"inner-box\">\n          <list-albums\n            [albumsList] = \"masterAlbumsList\"\n            (selectedAlbumSender) = \"editAlbum($event)\"\n          ></list-albums>\n        </div>\n      </div>\n      <div class=\"col-sm-4\">\n        <div class=\"inner-box\">\n          <new-album\n            [selectedAlbum] = \"clickedAlbum\"\n            (newAlbumSender) = \"addAlbum($event)\"\n          ></new-album>\n          <edit-album\n            [selectedAlbum] = \"clickedAlbum\"\n            (editAlbumSender) = \"finishedUpdate()\"\n          ></edit-album>\n        </div>\n      </div>\n    </div>\n  </div>\n  "
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);

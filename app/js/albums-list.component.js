@@ -11,15 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ListAlbumsComponent = (function () {
     function ListAlbumsComponent() {
+        this.selectedAlbumSender = new core_1.EventEmitter();
     }
+    ListAlbumsComponent.prototype.selectAlbum = function (albumToEdit) {
+        // console.log(albumToEdit);
+        this.selectedAlbumSender.emit(albumToEdit);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
     ], ListAlbumsComponent.prototype, "albumsList", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], ListAlbumsComponent.prototype, "selectedAlbumSender", void 0);
     ListAlbumsComponent = __decorate([
         core_1.Component({
             selector: "list-albums",
-            template: "\n    <div *ngFor=\"let currentAlbum of albumsList\">\n      <h2>{{currentAlbum.name}}</h2>\n    </div>\n    "
+            template: "\n    <div *ngFor=\"let currentAlbum of albumsList\" (click)=\"selectAlbum(currentAlbum)\">\n      <h2>{{currentAlbum.name}} ({{currentAlbum.genre}})</h2>\n      <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>\n      <p>By <strong>{{currentAlbum.artist}}</strong>: {{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>\n      <p *ngIf=\"currentAlbum.amountInStock>0\">IN STOCK</p>\n    </div>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], ListAlbumsComponent);

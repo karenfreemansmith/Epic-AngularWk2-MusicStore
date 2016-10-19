@@ -1,20 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Album } from './album.model';
 
 @Component({
   selector: 'my-app',
   template: `
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Karen & Zack's<br>Oldies but Goodies</h1>
+    </div>
+  </div>
   <div class="container">
-    <h1>Karen & Zack's Oldies but Goodies</h1>
     <div class="row">
       <div class="col-sm-8">
-        <list-albums
-          [albumsList] = "masterAlbumsList"
-        ></list-albums>
+        <div class="inner-box">
+          <list-albums
+            [albumsList] = "masterAlbumsList"
+            (selectedAlbumSender) = "editAlbum($event)"
+          ></list-albums>
+        </div>
       </div>
       <div class="col-sm-4">
-        <new-album></new-album>
-        <edit-album></edit-album>
+        <div class="inner-box">
+          <new-album
+            [selectedAlbum] = "clickedAlbum"
+            (newAlbumSender) = "addAlbum($event)"
+          ></new-album>
+          <edit-album
+            [selectedAlbum] = "clickedAlbum"
+            (editAlbumSender) = "finishedUpdate()"
+          ></edit-album>
+        </div>
       </div>
     </div>
   </div>
@@ -23,18 +38,21 @@ import { Album } from './album.model';
 
 export class AppComponent {
   public masterAlbumsList: Album[] = [
-    new Album("NAME1", "ARTIST1", "GENRE1", "placeholder.png", 9.95, 10),
-    new Album("NAME2", "ARTIST2", "GENRE2", "placeholder.png", 9.95, 10),
-    new Album("NAME3", "ARTIST3", "GENRE3", "placeholder.png", 9.95, 10)
+    new Album("Abbey Road", "The Beatles", "Rock", "beatles-abbey.jpg", 19.95, 20),
+    new Album("Blood on the Tracks", "Bob Dylan", "Folk", "dylan-blood.jpg", 14.95, 15),
+    new Album("Stardust", "Willie Nelson", "Country", "nelson-stardust.jpg", 9.95, 10)
   ];
-  // addAlbum(newAlbumFromChild: Album) {
-  //   this.masterAlbumList.push(newAlbumFromChild);
-  // }
-  // selectedAlbum: Album = null;
-  // showDetails(clickedAlbum: Album) {
-  //   this.selectedAlbum = clickedAlbum;
-  // }
-  // finishedUpdate() {
-  //   this.selectedAlbum = null;
-  // }
+
+  clickedAlbum: Album = null;
+
+  addAlbum(newAlbumToAdd: Album) {
+    this.masterAlbumsList.push(newAlbumToAdd);
+  }
+  editAlbum(clickedAlbum2: Album) {
+    console.log(clickedAlbum2);
+    this.clickedAlbum = clickedAlbum2;
+  }
+  finishedUpdate() {
+    this.clickedAlbum = null;
+  }
 }

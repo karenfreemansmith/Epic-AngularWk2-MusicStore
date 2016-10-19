@@ -1,3 +1,71 @@
-h1 {
-  color: rebeccapurple;
+////////// Variables
+// Colors
+$bluishTransparency: rgba(0,0,64,0.5);
+$backgroundColor: peachpuff;
+$titleColor: hotpink;
+$titleColorTransparent: rgba(255,105,180,0.5);
+$shadowColor: ghostwhite;
+// Lengths
+$albumArtWidth: 40%;
+$textShadowSpread: 8px;
+
+// Element Selectors
+body {
+  background-color: $backgroundColor;
 }
+
+h2 {
+  font-family: 'Righteous', cursive;
+  font-size: 4rem;
+}
+
+// Bootstrap Class Selectors
+.jumbotron {
+  background-color: $bluishTransparency;
+  text-align: center;
+  font-family: 'Codystar', cursive;
+  color: $titleColor;
+  text-shadow: 0 0 $textShadowSpread $shadowColor;
+  h1 {
+    font-size: 10rem;
+    margin: 0;
+  }
+}
+
+// Custom Class Selectors
+.inner-box {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: $bluishTransparency;
+  border: 3px solid $titleColor;
+  border-radius: 10px;
+}
+
+.image-albumCover {
+  display: block;
+  margin: 0 auto;
+  width: $albumArtWidth;
+  height: auto;
+  border: 5px solid $titleColorTransparent;
+  border-radius: 10px;
+}
+
+// ID Selectors
+// #testFont1 {
+//   font-family: 'Pacifico', cursive;
+// }
+// #testFont2 {
+//   font-family: 'Righteous', cursive;
+// }
+// #testFont3 {
+//   font-family: 'Bungee Shade', cursive;
+// }
+// #testFont4 {
+//   font-family: 'Codystar', cursive;
+// }
+// #testFont5 {
+//   font-family: 'Fascinate', cursive;
+// }
+// #testFont6 {
+//   font-family: 'Poiret One', cursive;
+// }
