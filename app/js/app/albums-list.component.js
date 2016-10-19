@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ListAlbumsComponent = (function () {
     function ListAlbumsComponent() {
+        //@Input() currentUserCart: Cart;
         this.selectedAlbumSender = new core_1.EventEmitter();
         this.selectedGenre = "All";
     }
@@ -33,7 +34,7 @@ __decorate([
 ListAlbumsComponent = __decorate([
     core_1.Component({
         selector: "list-albums",
-        template: "\n\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <select (change)=\"onChange($event.target.value)\" class=\"form-control\">\n          <option value = \"All\" selected>All Genres</option>\n          <option value = \"Rock\">Rock</option>\n          <option value = \"Folk\">Folk</option>\n          <option value = \"Country\">Country</option>\n        </select>\n      </div>\n    </div>\n\n    <div *ngFor=\"let currentAlbum of albumsList | genrePipe:selectedGenre\" (click)=\"selectAlbum(currentAlbum)\">\n      <h2>{{currentAlbum.name}} ({{currentAlbum.genre}})</h2>\n      <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>\n      <p>By <strong>{{currentAlbum.artist}}</strong>: {{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>\n      <p *ngIf=\"currentAlbum.amountInStock>0\">IN STOCK</p>\n    </div>\n    "
+        template: "\n\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <select (change)=\"onChange($event.target.value)\" class=\"form-control\">\n          <option value = \"All\" selected>All Genres</option>\n          <option value = \"Rock\">Rock</option>\n          <option value = \"Folk\">Folk</option>\n          <option value = \"Country\">Country</option>\n        </select>\n      </div>\n    </div>\n\n    <div *ngFor=\"let currentAlbum of albumsList | genrePipe:selectedGenre\" (click)=\"selectAlbum(currentAlbum)\">\n      <h2>{{currentAlbum.name}} ({{currentAlbum.genre}})</h2>\n      <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>\n      <p>By <strong>{{currentAlbum.artist}}</strong>: {{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>\n      <p *ngIf=\"currentAlbum.amountInStock>0\">Only {{currentAlbum.amountInStock}} left in stock!\n         <!--<button *ngIf=\"currentUserCart.userName==='guest'\" type=\"button\">Add to Cart</button>-->\n      </p>\n      <!--<p>{{currentUserCart.userName}}</p>-->\n      <p *ngIf=\"currentAlbum.amountInStock<=0\" class=\"warning\">CURRENTLY OUT OF STOCK</p>\n    </div>\n    "
     }),
     __metadata("design:paramtypes", [])
 ], ListAlbumsComponent);

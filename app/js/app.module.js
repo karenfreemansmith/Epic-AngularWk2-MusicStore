@@ -15,6 +15,7 @@ var app_component_1 = require('./app.component');
 var albums_list_component_1 = require('./albums-list.component');
 var album_edit_component_1 = require('./album-edit.component');
 var album_new_component_1 = require('./album-new.component');
+var cart_component_1 = require('./cart.component');
 var genre_pipe_1 = require('./genre.pipe');
 var AppModule = (function () {
     function AppModule() {
@@ -30,6 +31,7 @@ var AppModule = (function () {
                 albums_list_component_1.ListAlbumsComponent,
                 album_edit_component_1.EditAlbumComponent,
                 album_new_component_1.NewAlbumComponent,
+                cart_component_1.CartComponent,
                 genre_pipe_1.GenrePipe,
             ],
             bootstrap: [app_component_1.AppComponent]

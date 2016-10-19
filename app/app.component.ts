@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Album } from './album.model';
+import { Cart } from './cart.model';
 
 @Component({
   selector: 'my-app',
@@ -11,6 +12,14 @@ import { Album } from './album.model';
   </div>
   <div class="container">
     <div class="row">
+      <div class="col-sm-4 col-sm-offset-8">
+        <select (change)="login($event.target.value)" class="form-control">
+          <option value="guest" selected>Customer</option>
+          <option value="owner">Store Owner</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-8">
         <div class="inner-box">
           <list-albums
@@ -20,7 +29,7 @@ import { Album } from './album.model';
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="inner-box">
+        <div *ngIf="currentCart.userName==='owner'" class="inner-box">
           <new-album
             [selectedAlbum] = "clickedAlbum"
             (newAlbumSender) = "addAlbum($event)"
@@ -29,6 +38,9 @@ import { Album } from './album.model';
             [selectedAlbum] = "clickedAlbum"
             (editAlbumSender) = "finishedUpdate()"
           ></edit-album>
+        </div>
+        <div *ngIf="currentCart.userName==='guest'" class="inner-box">
+          <show-cart></show-cart>
         </div>
       </div>
     </div>
@@ -44,6 +56,10 @@ export class AppComponent {
   ];
 
   clickedAlbum: Album = null;
+  currentCart: Cart = new Cart();
+  // currentCart.userName = "guest";
+
+  // @Output() loginEmitter = new EventEmitter();
 
   addAlbum(newAlbumToAdd: Album) {
     this.masterAlbumsList.push(newAlbumToAdd);
@@ -54,5 +70,9 @@ export class AppComponent {
   }
   finishedUpdate() {
     this.clickedAlbum = null;
+  }
+  login(optionFromMenu) {
+    this.currentCart.userName = optionFromMenu;
+      // this.loginEmitter.emit(this.currentCart);
   }
 }

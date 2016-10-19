@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Album } from './album.model';
+import { Cart } from './cart.model';
 
 @Component ({
   selector: "list-albums",
@@ -20,13 +21,18 @@ import { Album } from './album.model';
       <h2>{{currentAlbum.name}} ({{currentAlbum.genre}})</h2>
       <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>
       <p>By <strong>{{currentAlbum.artist}}</strong>: {{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>
-      <p *ngIf="currentAlbum.amountInStock>0">IN STOCK</p>
+      <p *ngIf="currentAlbum.amountInStock>0">Only {{currentAlbum.amountInStock}} left in stock!
+         <!--<button *ngIf="currentUserCart.userName==='guest'" type="button">Add to Cart</button>-->
+      </p>
+      <!--<p>{{currentUserCart.userName}}</p>-->
+      <p *ngIf="currentAlbum.amountInStock<=0" class="warning">CURRENTLY OUT OF STOCK</p>
     </div>
     `
 })
 
 export class ListAlbumsComponent {
   @Input() albumsList: Album[];
+  //@Input() currentUserCart: Cart;
   @Output() selectedAlbumSender = new EventEmitter();
 
   selectedGenre: string = "All";
