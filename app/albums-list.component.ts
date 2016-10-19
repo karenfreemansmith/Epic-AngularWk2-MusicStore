@@ -17,15 +17,21 @@ import { Cart } from './cart.model';
       </div>
     </div>
 
-    <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre" (click)="selectAlbum(currentAlbum)">
-      <h2>{{currentAlbum.name}} ({{currentAlbum.genre}})</h2>
-      <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>
-      <p>By <strong>{{currentAlbum.artist}}</strong>: {{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>
-      <p *ngIf="currentAlbum.amountInStock>0">Only {{currentAlbum.amountInStock}} left in stock!
-         <!--<button *ngIf="currentUserCart.userName==='guest'" type="button">Add to Cart</button>-->
-      </p>
-      <!--<p>{{currentUserCart.userName}}</p>-->
-      <p *ngIf="currentAlbum.amountInStock<=0" class="warning">CURRENTLY OUT OF STOCK</p>
+    <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre" (click)="selectAlbum(currentAlbum)" class="row">
+      <hr>
+      <div class="col-md-8">
+        <h2>{{currentAlbum.name}}</h2>
+        <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>
+        <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>
+      </div>
+      <div class="col-md-4 purchase-info">
+        <p>{{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>
+        <p *ngIf="currentAlbum.amountInStock>0">Only {{currentAlbum.amountInStock}} left in stock!
+           <!--<button *ngIf="currentUserCart.userName==='guest'" type="button">Add to Cart</button>-->
+        </p>
+        <!--<p>{{currentUserCart.userName}}</p>-->
+        <p *ngIf="currentAlbum.amountInStock<=0" class="warning">CURRENTLY OUT OF STOCK</p>
+      </div>
     </div>
     `
 })

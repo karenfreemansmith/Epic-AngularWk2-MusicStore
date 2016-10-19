@@ -14,9 +14,18 @@ body {
   background-color: $backgroundColor;
 }
 
-h2 {
+h2,
+h3 {
   font-family: 'Righteous', cursive;
-  font-size: 4rem;
+  text-align: center;
+  // font-size: 4rem;
+}
+
+hr {
+  display: block;
+  border-top-color: $titleColor;
+  width: 90%;
+  margin: 10px auto;
 }
 
 // Bootstrap Class Selectors
@@ -43,7 +52,7 @@ h2 {
 
 .image-albumCover {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   width: $albumArtWidth;
   height: auto;
   border: 5px solid $titleColorTransparent;
@@ -52,6 +61,10 @@ h2 {
 
 .warning {
   color: deeppink;
+}
+
+.purchase-info {
+  margin-top: 40px;
 }
 
 // ID Selectors
