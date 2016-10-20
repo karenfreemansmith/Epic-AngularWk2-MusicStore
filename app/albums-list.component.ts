@@ -25,18 +25,17 @@ import { Cart } from './cart.model';
 
     <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre | artistPipe:selectedArtist" class="row">
       <hr>
-      <div class="col-md-8" (click)="selectAlbum(currentAlbum)">
+      <div class="col-md-8 clickable" (click)="selectAlbum(currentAlbum)">
         <h2>{{currentAlbum.name}}</h2>
         <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>
         <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>
       </div>
       <div class="col-md-4 purchase-info">
-        <p>{{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>
-        <p *ngIf="currentAlbum.amountInStock>0">Only {{currentAlbum.amountInStock}} left in stock!
-           <button type="button" (click)="addToCartChild(currentAlbum)">Add to Cart</button>
-        </p>
-        <!--<p>{{currentUserCart.userName}}</p>-->
-        <p *ngIf="currentAlbum.amountInStock<=0" class="warning">CURRENTLY OUT OF STOCK</p>
+        <h3>{{currentAlbum.price | currency:'USD':true:'1.2-2'}} </h3>
+        <h4 *ngIf="currentAlbum.amountInStock>0">Only {{currentAlbum.amountInStock}} left in stock!</h4>
+        <br>
+        <button type="button" (click)="addToCartChild(currentAlbum)" class="form-control">Add to Cart</button>
+        <h4 *ngIf="currentAlbum.amountInStock<=0" class="warning">CURRENTLY OUT OF STOCK</h4>
       </div>
     </div>
     `

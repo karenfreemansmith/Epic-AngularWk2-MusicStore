@@ -15,10 +15,10 @@ body {
 }
 
 h2,
-h3 {
+h3,
+h4 {
   font-family: 'Righteous', cursive;
   text-align: center;
-  // font-size: 4rem;
 }
 
 hr {
@@ -26,6 +26,11 @@ hr {
   border-top-color: $titleColor;
   width: 90%;
   margin: 10px auto;
+}
+show-cart {
+  h4 {
+    text-align: left;
+  }
 }
 
 // Bootstrap Class Selectors
@@ -66,23 +71,3 @@ hr {
 .purchase-info {
   margin-top: 40px;
 }
-
-// ID Selectors
-// #testFont1 {
-//   font-family: 'Pacifico', cursive;
-// }
-// #testFont2 {
-//   font-family: 'Righteous', cursive;
-// }
-// #testFont3 {
-//   font-family: 'Bungee Shade', cursive;
-// }
-// #testFont4 {
-//   font-family: 'Codystar', cursive;
-// }
-// #testFont5 {
-//   font-family: 'Fascinate', cursive;
-// }
-// #testFont6 {
-//   font-family: 'Poiret One', cursive;
-// }

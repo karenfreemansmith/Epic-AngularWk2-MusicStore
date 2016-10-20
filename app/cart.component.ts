@@ -8,9 +8,10 @@ import { Cart } from './cart.model';
 
     <h3>Your Cart:</h3>
     <div *ngFor="let currentAlbum of albumsList">
-      <h4>{{currentAlbum.name}}</h4>
-      <h4>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h4>
-      <p> {{currentAlbum.amountInCart}} x {{currentAlbum.price | currency:'USD':true:'1.2-2'}} = {{currentAlbum.calculateCost() | currency:'USD':true:'1.2-2'}}</p>
+      <hr>
+      <h4>({{currentAlbum.amountInCart}}) {{currentAlbum.name}}, {{currentAlbum.artist}}</h4>
+      <h5 *ngIf="currentAlbum.amountInCart>1">Price per Unit: {{currentAlbum.price | currency:'USD':true:'1.2-2'}}</h5>
+      <h4>Price: {{currentAlbum.calculateCost() | currency:'USD':true:'1.2-2'}}</h4>
     </div>
     <h3>Total:</h3>
     <h3>{{ cartTotal | currency:'USD':true:'1.2-2'}}</h3>
