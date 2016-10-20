@@ -48,6 +48,7 @@ import { Cart } from './cart.model';
         <div *ngIf="currentCart.userName==='guest'" class="inner-box">
           <show-cart
             [albumsList] = "cartAlbumList"
+            [cartTotal] = "totalCart"
           ></show-cart>
           <!--<show-cart
             [selectedAlbum] = "clickedAlbum"
@@ -68,6 +69,7 @@ export class AppComponent {
   public cartAlbumList: Album[] = [];
   currentCart: Cart = new Cart();
   clickedAlbum: Album = null;
+  totalCart: number = 0;
 
   addAlbum(newAlbumToAdd: Album) {
     this.masterAlbumsList.push(newAlbumToAdd);
@@ -84,11 +86,14 @@ export class AppComponent {
       // this.loginEmitter.emit(this.currentCart);
   }
   reallyaddToCart(selectedAlbum: Album) {
-    console.log(selectedAlbum);
     if(!this.cartAlbumList.includes(selectedAlbum)) {
       this.cartAlbumList.push(selectedAlbum);
     }
     selectedAlbum.reduceInventory();
+    //this.cartAlbumList.forEach(function(album){
+      this.totalCart = selectedAlbum.calculateCost();
+    //});
+
     // if(selectedAlbum.amountInStock<=0) {
     //   this.masterAlbumsList.splice(this.masterAlbumsList.indexOf(selectedAlbum), 1);
     // }

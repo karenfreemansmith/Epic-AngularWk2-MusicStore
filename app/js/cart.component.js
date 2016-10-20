@@ -16,10 +16,14 @@ var CartComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Array)
     ], CartComponent.prototype, "albumsList", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], CartComponent.prototype, "cartTotal", void 0);
     CartComponent = __decorate([
         core_1.Component({
             selector: 'show-cart',
-            template: "\n    \n    <h3>Your Cart:</h3>\n    <div *ngFor=\"let currentAlbum of albumsList\" class=\"row\">\n      <h2>{{currentAlbum.name}}</h2>\n      <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>\n      <p> {{currentAlbum.amountInCart}} x = {{currentAlbum.amountInCart * (currentAlbum.price | currency:'USD':true:'1.2-2')}} </p>\n      <p></p>\n    </div>\n    "
+            template: "\n\n    <h3>Your Cart:</h3>\n    <div *ngFor=\"let currentAlbum of albumsList\">\n      <h4>{{currentAlbum.name}}</h4>\n      <h4>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h4>\n      <p> {{currentAlbum.amountInCart}} x {{currentAlbum.price | currency:'USD':true:'1.2-2'}} = {{currentAlbum.calculateCost() | currency:'USD':true:'1.2-2'}}</p>\n    </div>\n    <h3>Total:</h3>\n    <h3>{{ cartTotal | currency:'USD':true:'1.2-2'}}</h3>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], CartComponent);

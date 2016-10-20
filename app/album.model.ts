@@ -6,4 +6,7 @@ export class Album {
     this.amountInStock--;
     this.amountInCart++;
   }
+  calculateCost() {
+    return this.amountInCart * this.price;
+  }
 }

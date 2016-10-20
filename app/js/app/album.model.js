@@ -13,6 +13,9 @@ var Album = (function () {
         this.amountInStock--;
         this.amountInCart++;
     };
+    Album.prototype.calculateCost = function () {
+        return this.amountInCart * this.price;
+    };
     return Album;
 }());
 exports.Album = Album;
