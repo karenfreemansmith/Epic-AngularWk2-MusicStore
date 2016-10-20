@@ -5,14 +5,19 @@ import { Cart } from './cart.model';
 @Component({
   selector: 'show-cart',
   template: `
-    <h4>Welcome, {{currentUserCart.userName}}!</h4>
+    
     <h3>Your Cart:</h3>
-    <ul>
-      <li>TEST</li>
-    </ul>
+    <div *ngFor="let currentAlbum of albumsList" class="row">
+      <h2>{{currentAlbum.name}}</h2>
+      <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>
+      <p> {{currentAlbum.amountInCart}} x = {{currentAlbum.amountInCart * (currentAlbum.price | currency:'USD':true:'1.2-2')}} </p>
+      <p></p>
+    </div>
     `
 })
 
 export class CartComponent {
-  currentUserCart: Cart = new Cart();
+  @Input() albumsList: Album[];
+  //currentUserCart: Cart = new Cart();
+  //currentUserCart.cartContents.push(selectedAlbum);
 }

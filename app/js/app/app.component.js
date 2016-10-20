@@ -18,11 +18,10 @@ var AppComponent = (function () {
             new album_model_1.Album("Blood on the Tracks", "Bob Dylan", "Folk", "dylan-blood.jpg", 14.95, 15),
             new album_model_1.Album("Stardust", "Willie Nelson", "Country", "nelson-stardust.jpg", 9.95, 10)
         ];
-        this.clickedAlbum = null;
+        this.cartAlbumList = [];
         this.currentCart = new cart_model_1.Cart();
+        this.clickedAlbum = null;
     }
-    // currentCart.userName = "guest";
-    // @Output() loginEmitter = new EventEmitter();
     AppComponent.prototype.addAlbum = function (newAlbumToAdd) {
         this.masterAlbumsList.push(newAlbumToAdd);
     };
@@ -37,12 +36,22 @@ var AppComponent = (function () {
         this.currentCart.userName = optionFromMenu;
         // this.loginEmitter.emit(this.currentCart);
     };
+    AppComponent.prototype.reallyaddToCart = function (selectedAlbum) {
+        console.log(selectedAlbum);
+        if (!this.cartAlbumList.includes(selectedAlbum)) {
+            this.cartAlbumList.push(selectedAlbum);
+        }
+        selectedAlbum.reduceInventory();
+        // if(selectedAlbum.amountInStock<=0) {
+        //   this.masterAlbumsList.splice(this.masterAlbumsList.indexOf(selectedAlbum), 1);
+        // }
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n  <div class=\"jumbotron\">\n    <div class=\"container\">\n      <h1>Karen & Zack's<br>Oldies but Goodies</h1>\n    </div>\n  </div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-sm-4 col-sm-offset-8\">\n        <select (change)=\"login($event.target.value)\" class=\"form-control\">\n          <option value=\"guest\" selected>Customer</option>\n          <option value=\"owner\">Store Owner</option>\n        </select>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-sm-8\">\n        <div class=\"inner-box\">\n          <list-albums\n            [albumsList] = \"masterAlbumsList\"\n            (selectedAlbumSender) = \"editAlbum($event)\"\n          ></list-albums>\n        </div>\n      </div>\n      <div class=\"col-sm-4\">\n        <div *ngIf=\"currentCart.userName==='owner'\" class=\"inner-box\">\n          <new-album\n            [selectedAlbum] = \"clickedAlbum\"\n            (newAlbumSender) = \"addAlbum($event)\"\n          ></new-album>\n          <edit-album\n            [selectedAlbum] = \"clickedAlbum\"\n            (editAlbumSender) = \"finishedUpdate()\"\n          ></edit-album>\n        </div>\n        <div *ngIf=\"currentCart.userName==='guest'\" class=\"inner-box\">\n          <show-cart></show-cart>\n        </div>\n      </div>\n    </div>\n  </div>\n  "
+        template: "\n  <div class=\"jumbotron\">\n    <div class=\"container\">\n      <h1>Karen & Zack's<br>Oldies but Goodies</h1>\n    </div>\n  </div>\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-sm-4 col-sm-offset-8\">\n        <select (change)=\"login($event.target.value)\" class=\"form-control\">\n          <option value=\"guest\" selected>Customer</option>\n          <option value=\"owner\">Store Owner</option>\n        </select>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-sm-8\">\n        <div class=\"inner-box\">\n          <list-albums\n            [albumsList] = \"masterAlbumsList\"\n            (selectedAlbumSender) = \"editAlbum($event)\"\n            (addAlbumToCartSender) = \"reallyaddToCart($event)\"\n          ></list-albums>\n          <!--<list-albums\n\n            [currentUserCart] = \"currentCart\"\n            (addAlbumToCartSender) = \"addtoCart($event)\"\n          ></list-albums>-->\n        </div>\n      </div>\n      <div class=\"col-sm-4\">\n        <div *ngIf=\"currentCart.userName==='owner'\" class=\"inner-box\">\n          <new-album\n            [selectedAlbum] = \"clickedAlbum\"\n            (newAlbumSender) = \"addAlbum($event)\"\n          ></new-album>\n          <edit-album\n            [selectedAlbum] = \"clickedAlbum\"\n            (editAlbumSender) = \"finishedUpdate()\"\n          ></edit-album>\n        </div>\n        <div *ngIf=\"currentCart.userName==='guest'\" class=\"inner-box\">\n          <show-cart\n            [albumsList] = \"cartAlbumList\"\n          ></show-cart>\n          <!--<show-cart\n            [selectedAlbum] = \"clickedAlbum\"\n          ></show-cart>-->\n        </div>\n      </div>\n    </div>\n  </div>\n  "
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);

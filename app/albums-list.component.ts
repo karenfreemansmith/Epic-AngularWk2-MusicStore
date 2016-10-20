@@ -17,9 +17,9 @@ import { Cart } from './cart.model';
       </div>
     </div>
 
-    <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre" (click)="selectAlbum(currentAlbum)" class="row">
+    <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre" class="row">
       <hr>
-      <div class="col-md-8">
+      <div class="col-md-8" (click)="selectAlbum(currentAlbum)">
         <h2>{{currentAlbum.name}}</h2>
         <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>
         <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>
@@ -27,7 +27,7 @@ import { Cart } from './cart.model';
       <div class="col-md-4 purchase-info">
         <p>{{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>
         <p *ngIf="currentAlbum.amountInStock>0">Only {{currentAlbum.amountInStock}} left in stock!
-           <!--<button *ngIf="currentUserCart.userName==='guest'" type="button">Add to Cart</button>-->
+           <button type="button" (click)="addToCartChild(currentAlbum)">Add to Cart</button>
         </p>
         <!--<p>{{currentUserCart.userName}}</p>-->
         <p *ngIf="currentAlbum.amountInStock<=0" class="warning">CURRENTLY OUT OF STOCK</p>
@@ -38,8 +38,9 @@ import { Cart } from './cart.model';
 
 export class ListAlbumsComponent {
   @Input() albumsList: Album[];
-  //@Input() currentUserCart: Cart;
+  @Input() currentUserCart: Cart;
   @Output() selectedAlbumSender = new EventEmitter();
+  @Output() addAlbumToCartSender = new EventEmitter();
 
   selectedGenre: string = "All";
 
@@ -48,5 +49,8 @@ export class ListAlbumsComponent {
   }
   onChange(optionFromMenu) {
     this.selectedGenre = optionFromMenu;
+  }
+  addToCartChild(chosenAlbum: Album){
+    this.addAlbumToCartSender.emit(chosenAlbum);
   }
 }

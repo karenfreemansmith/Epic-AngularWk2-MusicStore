@@ -25,7 +25,13 @@ import { Cart } from './cart.model';
           <list-albums
             [albumsList] = "masterAlbumsList"
             (selectedAlbumSender) = "editAlbum($event)"
+            (addAlbumToCartSender) = "reallyaddToCart($event)"
           ></list-albums>
+          <!--<list-albums
+
+            [currentUserCart] = "currentCart"
+            (addAlbumToCartSender) = "addtoCart($event)"
+          ></list-albums>-->
         </div>
       </div>
       <div class="col-sm-4">
@@ -40,7 +46,12 @@ import { Cart } from './cart.model';
           ></edit-album>
         </div>
         <div *ngIf="currentCart.userName==='guest'" class="inner-box">
-          <show-cart></show-cart>
+          <show-cart
+            [albumsList] = "cartAlbumList"
+          ></show-cart>
+          <!--<show-cart
+            [selectedAlbum] = "clickedAlbum"
+          ></show-cart>-->
         </div>
       </div>
     </div>
@@ -54,12 +65,9 @@ export class AppComponent {
     new Album("Blood on the Tracks", "Bob Dylan", "Folk", "dylan-blood.jpg", 14.95, 15),
     new Album("Stardust", "Willie Nelson", "Country", "nelson-stardust.jpg", 9.95, 10)
   ];
-
-  clickedAlbum: Album = null;
+  public cartAlbumList: Album[] = [];
   currentCart: Cart = new Cart();
-  // currentCart.userName = "guest";
-
-  // @Output() loginEmitter = new EventEmitter();
+  clickedAlbum: Album = null;
 
   addAlbum(newAlbumToAdd: Album) {
     this.masterAlbumsList.push(newAlbumToAdd);
@@ -74,5 +82,16 @@ export class AppComponent {
   login(optionFromMenu) {
     this.currentCart.userName = optionFromMenu;
       // this.loginEmitter.emit(this.currentCart);
+  }
+  reallyaddToCart(selectedAlbum: Album) {
+    console.log(selectedAlbum);
+    if(!this.cartAlbumList.includes(selectedAlbum)) {
+      this.cartAlbumList.push(selectedAlbum);
+    }
+    selectedAlbum.reduceInventory();
+    // if(selectedAlbum.amountInStock<=0) {
+    //   this.masterAlbumsList.splice(this.masterAlbumsList.indexOf(selectedAlbum), 1);
+    // }
+
   }
 }

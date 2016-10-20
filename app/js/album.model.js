@@ -7,7 +7,12 @@ var Album = (function () {
         this.albumArtFilePath = albumArtFilePath;
         this.price = price;
         this.amountInStock = amountInStock;
+        this.amountInCart = 0;
     }
+    Album.prototype.reduceInventory = function () {
+        this.amountInStock--;
+        this.amountInCart++;
+    };
     return Album;
 }());
 exports.Album = Album;
