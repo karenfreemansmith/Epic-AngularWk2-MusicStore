@@ -89,8 +89,10 @@ export class AppComponent {
     if(!this.cartAlbumList.includes(selectedAlbum)) {
       this.cartAlbumList.push(selectedAlbum);
     }
+
     selectedAlbum.reduceInventory();
-    // this.totalCart = 0;
+
+    this.totalCart = 0;
     for(let album of this.cartAlbumList){
       this.totalCart += album.calculateCost();
     };

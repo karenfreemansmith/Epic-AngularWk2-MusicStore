@@ -17,6 +17,7 @@ var album_edit_component_1 = require('./album-edit.component');
 var album_new_component_1 = require('./album-new.component');
 var cart_component_1 = require('./cart.component');
 var genre_pipe_1 = require('./genre.pipe');
+var artist_pipe_1 = require('./artist.pipe');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,6 +34,7 @@ var AppModule = (function () {
                 album_new_component_1.NewAlbumComponent,
                 cart_component_1.CartComponent,
                 genre_pipe_1.GenrePipe,
+                artist_pipe_1.ArtistPipe,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

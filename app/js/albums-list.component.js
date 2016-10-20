@@ -15,12 +15,16 @@ var ListAlbumsComponent = (function () {
         this.selectedAlbumSender = new core_1.EventEmitter();
         this.addAlbumToCartSender = new core_1.EventEmitter();
         this.selectedGenre = "All";
+        this.selectedArtist = "All";
     }
     ListAlbumsComponent.prototype.selectAlbum = function (albumToEdit) {
         this.selectedAlbumSender.emit(albumToEdit);
     };
-    ListAlbumsComponent.prototype.onChange = function (optionFromMenu) {
+    ListAlbumsComponent.prototype.onChangeGenre = function (optionFromMenu) {
         this.selectedGenre = optionFromMenu;
+    };
+    ListAlbumsComponent.prototype.onChangeArtist = function (optionFromMenu) {
+        this.selectedArtist = optionFromMenu;
     };
     ListAlbumsComponent.prototype.addToCartChild = function (chosenAlbum) {
         this.addAlbumToCartSender.emit(chosenAlbum);
@@ -44,7 +48,7 @@ var ListAlbumsComponent = (function () {
     ListAlbumsComponent = __decorate([
         core_1.Component({
             selector: "list-albums",
-            template: "\n\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <select (change)=\"onChange($event.target.value)\" class=\"form-control\">\n          <option value = \"All\" selected>All Genres</option>\n          <option value = \"Rock\">Rock</option>\n          <option value = \"Folk\">Folk</option>\n          <option value = \"Country\">Country</option>\n        </select>\n      </div>\n    </div>\n\n    <div *ngFor=\"let currentAlbum of albumsList | genrePipe:selectedGenre\" class=\"row\">\n      <hr>\n      <div class=\"col-md-8\" (click)=\"selectAlbum(currentAlbum)\">\n        <h2>{{currentAlbum.name}}</h2>\n        <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>\n        <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>\n      </div>\n      <div class=\"col-md-4 purchase-info\">\n        <p>{{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>\n        <p *ngIf=\"currentAlbum.amountInStock>0\">Only {{currentAlbum.amountInStock}} left in stock!\n           <button type=\"button\" (click)=\"addToCartChild(currentAlbum)\">Add to Cart</button>\n        </p>\n        <!--<p>{{currentUserCart.userName}}</p>-->\n        <p *ngIf=\"currentAlbum.amountInStock<=0\" class=\"warning\">CURRENTLY OUT OF STOCK</p>\n      </div>\n    </div>\n    "
+            template: "\n\n    <div class=\"row\">\n      <div class=\"col-xs-6\">\n        <select (change)=\"onChangeGenre($event.target.value)\" class=\"form-control\">\n          <option value = \"All\" selected>All Genres</option>\n          <option value = \"Rock\">Rock</option>\n          <option value = \"Folk\">Folk</option>\n          <option value = \"Country\">Country</option>\n        </select>\n      </div>\n      <div class=\"col-xs-6\">\n        <select (change)=\"onChangeArtist($event.target.value)\" class=\"form-control\">\n          <option value = \"All\" selected>All Artists</option>\n          <option *ngFor=\"let album of albumsList\" value=\"{{album.artist}}\">{{album.artist}}</option>\n        </select>\n      </div>\n    </div>\n\n    <div *ngFor=\"let currentAlbum of albumsList | genrePipe:selectedGenre | artistPipe:selectedArtist\" class=\"row\">\n      <hr>\n      <div class=\"col-md-8\" (click)=\"selectAlbum(currentAlbum)\">\n        <h2>{{currentAlbum.name}}</h2>\n        <h3>By <strong>{{currentAlbum.artist}}</strong>({{currentAlbum.genre}})</h3>\n        <img src='build/images/{{currentAlbum.albumArtFilePath}}' alt='album cover' class='image-albumCover'>\n      </div>\n      <div class=\"col-md-4 purchase-info\">\n        <p>{{currentAlbum.price | currency:'USD':true:'1.2-2'}} </p>\n        <p *ngIf=\"currentAlbum.amountInStock>0\">Only {{currentAlbum.amountInStock}} left in stock!\n           <button type=\"button\" (click)=\"addToCartChild(currentAlbum)\">Add to Cart</button>\n        </p>\n        <!--<p>{{currentUserCart.userName}}</p>-->\n        <p *ngIf=\"currentAlbum.amountInStock<=0\" class=\"warning\">CURRENTLY OUT OF STOCK</p>\n      </div>\n    </div>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], ListAlbumsComponent);

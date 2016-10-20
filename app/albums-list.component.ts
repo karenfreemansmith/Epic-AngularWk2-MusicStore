@@ -7,17 +7,23 @@ import { Cart } from './cart.model';
   template: `
 
     <div class="row">
-      <div class="col-xs-12">
-        <select (change)="onChange($event.target.value)" class="form-control">
+      <div class="col-xs-6">
+        <select (change)="onChangeGenre($event.target.value)" class="form-control">
           <option value = "All" selected>All Genres</option>
           <option value = "Rock">Rock</option>
           <option value = "Folk">Folk</option>
           <option value = "Country">Country</option>
         </select>
       </div>
+      <div class="col-xs-6">
+        <select (change)="onChangeArtist($event.target.value)" class="form-control">
+          <option value = "All" selected>All Artists</option>
+          <option *ngFor="let album of albumsList" value="{{album.artist}}">{{album.artist}}</option>
+        </select>
+      </div>
     </div>
 
-    <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre" class="row">
+    <div *ngFor="let currentAlbum of albumsList | genrePipe:selectedGenre | artistPipe:selectedArtist" class="row">
       <hr>
       <div class="col-md-8" (click)="selectAlbum(currentAlbum)">
         <h2>{{currentAlbum.name}}</h2>
@@ -43,12 +49,16 @@ export class ListAlbumsComponent {
   @Output() addAlbumToCartSender = new EventEmitter();
 
   selectedGenre: string = "All";
+  selectedArtist: string = "All";
 
   selectAlbum(albumToEdit: Album) {
     this.selectedAlbumSender.emit(albumToEdit);
   }
-  onChange(optionFromMenu) {
+  onChangeGenre(optionFromMenu) {
     this.selectedGenre = optionFromMenu;
+  }
+  onChangeArtist(optionFromMenu) {
+    this.selectedArtist = optionFromMenu;
   }
   addToCartChild(chosenAlbum: Album){
     this.addAlbumToCartSender.emit(chosenAlbum);

@@ -42,7 +42,7 @@ var AppComponent = (function () {
             this.cartAlbumList.push(selectedAlbum);
         }
         selectedAlbum.reduceInventory();
-        // this.totalCart = 0;
+        this.totalCart = 0;
         for (var _i = 0, _a = this.cartAlbumList; _i < _a.length; _i++) {
             var album = _a[_i];
             this.totalCart += album.calculateCost();
