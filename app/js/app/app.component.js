@@ -42,9 +42,12 @@ var AppComponent = (function () {
             this.cartAlbumList.push(selectedAlbum);
         }
         selectedAlbum.reduceInventory();
-        //this.cartAlbumList.forEach(function(album){
-        this.totalCart = selectedAlbum.calculateCost();
-        //});
+        // this.totalCart = 0;
+        for (var _i = 0, _a = this.cartAlbumList; _i < _a.length; _i++) {
+            var album = _a[_i];
+            this.totalCart += album.calculateCost();
+        }
+        ;
         // if(selectedAlbum.amountInStock<=0) {
         //   this.masterAlbumsList.splice(this.masterAlbumsList.indexOf(selectedAlbum), 1);
         // }

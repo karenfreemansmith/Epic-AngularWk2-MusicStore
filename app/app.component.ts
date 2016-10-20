@@ -90,9 +90,10 @@ export class AppComponent {
       this.cartAlbumList.push(selectedAlbum);
     }
     selectedAlbum.reduceInventory();
-    //this.cartAlbumList.forEach(function(album){
-      this.totalCart = selectedAlbum.calculateCost();
-    //});
+    // this.totalCart = 0;
+    for(let album of this.cartAlbumList){
+      this.totalCart += album.calculateCost();
+    };
 
     // if(selectedAlbum.amountInStock<=0) {
     //   this.masterAlbumsList.splice(this.masterAlbumsList.indexOf(selectedAlbum), 1);
